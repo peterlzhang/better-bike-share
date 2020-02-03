@@ -152,6 +152,7 @@ place = st.text_input(label='Input location, e.g. Portland, Oregon, USA', value=
 
 
 status = st.empty()
+status2 = st.empty()
 if place == 'Portland, Oregon, USA':
   city = ox.gdf_from_place(place)
   (city_grid, city_ft, city_bike_rentals) = load_example_data()
@@ -162,12 +163,14 @@ else:
   city_grid = gridify_polygon(city,0.01)
   status.text('STATUS: Finding existing bike rentals')
   city_bike_rentals = ox.pois_from_place(place, amenities=['bicycle_rental'])
-  status.text('STATUS: Gathering local geographic features from Open Street Map (OSM)')
+  status.text('STATUS: Gathering local geographic features from Open Street Map (OSM).')
+  status2.text('This may take longer for large cities.')
   all_amenities = ox.pois_from_place(place, amenities=amenity_names)
   all_amenities['geometry'] = all_amenities.apply(lambda row: row['geometry'].centroid 
                                                 if (type(row['geometry']) == Polygon) or (type(row['geometry']) == MultiPolygon)
                                                 else row['geometry'], axis=1)
-  status.text('Engineering features')
+  status.text('STATUS: Engineering features. This may take longer for large cities.')
+  status2.text('')
   city_ft = features_density(city_grid,all_amenities,city_bike_rentals)
   
   status.text('STATUS: Data collection complete')
