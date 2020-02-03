@@ -215,11 +215,11 @@ pred_dict = city_comparison['scaled_pred_density']
 actual_dict = city_comparison['scaled_actual_density']
 diff_dict = city_comparison['bike_rental_diff']
 
-pred_opacity = {str(key): pred_dict[key] for key in pred_dict.keys()}
-actual_opacity = {str(key): actual_dict[key] for key in actual_dict.keys()}
-diff_opacity = {str(key): abs(diff_dict[key]) for key in diff_dict.keys()}
+pred_opacity = {str(key): pred_dict[key]*0.5 for key in pred_dict.keys()}
+actual_opacity = {str(key): actual_dict[key]*0.5 for key in actual_dict.keys()}
+diff_opacity = {str(key): abs(diff_dict[key])/(scale_factor) for key in diff_dict.keys()}
 
-colormap = cm.linear.RdBu_11.scale(-scale_factor,scale_factor)
+colormap = cm.linear.RdBu_09.scale(-scale_factor,scale_factor)
 
 diff_color = {str(key): colormap(diff_dict[key]) for key in diff_dict.keys()}
 
@@ -234,7 +234,7 @@ m = folium.Map([city.geometry.centroid.y, city.geometry.centroid.x],
                zoom_start=11,
                tiles="CartoDb positron")
 
-style_city = {'color':'#ebc923 ', 'fillColor': '#ebc923 ', 'weight':'1', 'fillOpacity' : 0.1}
+style_city = {'color':'#ebc923 ', 'fillColor': '#ebc923 ', 'weight':'2', 'fillOpacity' : 0}
 folium.GeoJson(city,
                style_function=lambda x: style_city,
                name='City Limit').add_to(m)
@@ -243,8 +243,9 @@ folium.GeoJson(city,
 folium.GeoJson(
     city_comparison['geometry'],
     name='Actual bike share density',
+    show = False,
     style_function=lambda feature: {
-        'fillColor': '#0675c4',
+        'fillColor': '#0088ff',
         'color': 'black',
         'weight': 0,
         'fillOpacity': actual_opacity[feature['id']],
@@ -255,8 +256,9 @@ folium.GeoJson(
 folium.GeoJson(
     city_comparison['geometry'],
     name='Prediction: bike share density',
+    show = False,
     style_function=lambda feature: {
-        'fillColor': '#0675c4',
+        'fillColor': '#0088ff',
         'color': 'black',
         'weight': 0,
         'fillOpacity': pred_opacity[feature['id']],
