@@ -11,7 +11,7 @@ from shapely.ops import nearest_points
 import branca.colormap as cm
 import joblib
 import bike_share_funcs as bsf
-
+from folium import GeoJsonTooltip
 ##########################################################################################
 #
 ##########################################################################################
@@ -101,7 +101,7 @@ city_comparison['RF_prediction'] = city_predict
 city_comparison['bike_rental_diff'] = city_comparison['RF_prediction'] - city_comparison['bike_rental_density']
 
 scale_factor = max(max(city_predict),max(city_comparison.bike_rental_density))
-diff_factor = abs(max(city_comparison['bike_rental_diff']))
+diff_factor = max(abs(city_comparison['bike_rental_diff']))
 
 
 city_comparison['scaled_actual_density'] = city_ft['bike_rental_density'] / scale_factor
@@ -116,9 +116,9 @@ diff_dict = city_comparison['bike_rental_diff']
 
 pred_opacity = {str(key): pred_dict[key]*0.5 for key in pred_dict.keys()}
 actual_opacity = {str(key): actual_dict[key]*0.5 for key in actual_dict.keys()}
-diff_opacity = {str(key): abs(diff_dict[key])/(diff_factor*1.5) for key in diff_dict.keys()}
+diff_opacity = {str(key): abs(diff_dict[key])/(diff_factor*2) for key in diff_dict.keys()}
 
-colormap = cm.linear.RdBu_09.scale(-scale_factor,scale_factor)
+colormap = cm.linear.RdBu_09.scale(-diff_factor,diff_factor)
 
 diff_color = {str(key): colormap(diff_dict[key]) for key in diff_dict.keys()}
 
@@ -144,7 +144,7 @@ folium.GeoJson(
     name='Actual bike share density',
     show = False,
     style_function=lambda feature: {
-        'fillColor': '#0088ff',
+        'fillColor': '#04d45b',
         'color': 'black',
         'weight': 0,
         'fillOpacity': actual_opacity[feature['id']],
@@ -157,7 +157,7 @@ folium.GeoJson(
     name='Prediction: bike share density',
     show = False,
     style_function=lambda feature: {
-        'fillColor': '#0088ff',
+        'fillColor': '#04d45b',
         'color': 'black',
         'weight': 0,
         'fillOpacity': pred_opacity[feature['id']],
@@ -165,14 +165,30 @@ folium.GeoJson(
 ).add_to(m)
 
 # add difference
+tooltip=GeoJsonTooltip(
+    fields=["bike_rental_density", "RF_prediction"],
+    aliases=["Bike share density:", "ML prediction:"],
+    localize=True,
+    sticky=False,
+    labels=True,
+#     style="""
+#         background-color: #ffffff;
+#         border: 2px solid black;
+#         border-radius: 3px;
+#         box-shadow: 3px;
+#     """,
+#     max_width=800,
+)
+
 folium.GeoJson(
-    city_comparison['geometry'],
+    city_comparison,
     name='Difference: bike share density',
+    tooltip=tooltip,
     style_function=lambda feature: {
         'fillColor': diff_color[feature['id']],
         'color': 'black',
         'weight': 0,
-#         'fillOpacity': 0.7,
+#         'fillOpacity': 0.75,
         'fillOpacity': diff_opacity[feature['id']],
     }
 ).add_to(m)
