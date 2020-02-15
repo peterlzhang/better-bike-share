@@ -1,3 +1,0 @@
-Strava San Francisco metro sample data is obtained from
-  https://data.world/ssaudz/san-francisco-strava-metro-sample-2017
-  
