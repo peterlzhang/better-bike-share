@@ -17,23 +17,35 @@ from folium import GeoJsonTooltip
 ##########################################################################################
 
     
-amenity_names = ['animal_shelter', 'archive', 'arts_centre', 'atm', 'bank', 'bar', 'bench', 'bench;waste_basket',
-                 'bicycle_parking', 'bicycle_repair_station', 'biergarten', 'bureau_de_change', 'bus_station', 'cafe',
-                 'car_rental', 'car_sharing', 'car_wash', 'casino', 'charging_station', 'childcare', 'cinema',
-                 'circus_school', 'clinic', 'clock', 'club', 'college', 'community_centre', 'compressed_air',
-                 'conference_centre', 'courthouse', 'crematorium', 'dentist', 'device_charging_station', 'doctors',
-                 'doctors_offices', 'drinking_water', 'embassy', 'events_venue', 'fast_food', 'ferry_terminal',
-                 'fire_station', 'fountain', 'fuel', 'gallery', 'gambling', 'garden', 'grave_yard', 'grit_bin',
-                 'hospital', 'ice_cream', 'jobcentre', 'kindergarten', 'language_school', 'left_luggage',
-                 'library', 'life_boats', 'luggage_locker', 'marketplace', 'monastery', 'money_transfer',
-                 'money_transfer; post_office', 'motorcycle_parking', 'music_school', 'music_venue', 'nightclub',
-                 'nursing_home', 'parcel_lockers', 'parking', 'parking_entrance', 'parking_space', 'pharmacy',
-                 'photo_booth', 'place_of_worship', 'place_of_worship;monastery', 'police', 'post_box', 'post_depot',
-                 'post_office', 'prep_school', 'preschool', 'prison', 'pub', 'public_bath', 'public_bookcase',
-                 'public_building', 'recycling', 'restaurant', 'restaurant;cafe', 'school', 'shelter',
-                 'social_centre', 'social_facility', 'sport', 'stripclub', 'studio', 'swimming_pool', 'swingerclub',
-                 'taxi', 'telephone', 'theatre', 'toilets', 'townhall', 'trailer_park', 'trade_school', 'university',
-                 'vending_machine', 'venue', 'veterinary', 'waste_basket', 'water', 'water_fountain','yacht_club']
+# amenity_names = ['animal_shelter', 'archive', 'arts_centre', 'atm', 'bank', 'bar', 'bench', 'bench;waste_basket',
+#                  'bicycle_parking', 'bicycle_repair_station', 'biergarten', 'bureau_de_change', 'bus_station', 'cafe',
+#                  'car_rental', 'car_sharing', 'car_wash', 'casino', 'charging_station', 'childcare', 'cinema',
+#                  'circus_school', 'clinic', 'clock', 'club', 'college', 'community_centre', 'compressed_air',
+#                  'conference_centre', 'courthouse', 'crematorium', 'dentist', 'device_charging_station', 'doctors',
+#                  'doctors_offices', 'drinking_water', 'embassy', 'events_venue', 'fast_food', 'ferry_terminal',
+#                  'fire_station', 'fountain', 'fuel', 'gallery', 'gambling', 'garden', 'grave_yard', 'grit_bin',
+#                  'hospital', 'ice_cream', 'jobcentre', 'kindergarten', 'language_school', 'left_luggage',
+#                  'library', 'life_boats', 'luggage_locker', 'marketplace', 'monastery', 'money_transfer',
+#                  'money_transfer; post_office', 'motorcycle_parking', 'music_school', 'music_venue', 'nightclub',
+#                  'nursing_home', 'parcel_lockers', 'parking', 'parking_entrance', 'parking_space', 'pharmacy',
+#                  'photo_booth', 'place_of_worship', 'place_of_worship;monastery', 'police', 'post_box', 'post_depot',
+#                  'post_office', 'prep_school', 'preschool', 'prison', 'pub', 'public_bath', 'public_bookcase',
+#                  'public_building', 'recycling', 'restaurant', 'restaurant;cafe', 'school', 'shelter',
+#                  'social_centre', 'social_facility', 'sport', 'stripclub', 'studio', 'swimming_pool', 'swingerclub',
+#                  'taxi', 'telephone', 'theatre', 'toilets', 'townhall', 'trailer_park', 'trade_school', 'university',
+#                  'vending_machine', 'venue', 'veterinary', 'waste_basket', 'water', 'water_fountain','yacht_club']
+#                  
+                 
+                 
+amenity_names = ['cafe', 'bar', 'bicycle_parking', 'fast_food',
+                'bank', 'pharmacy', 'pub', 'atm', 'car_sharing',
+                'theatre', 'post_office', 'drinking_water', 'school',
+                'cinema', 'bench', 'motorcycle_parking', 'ice_cream',
+                'recycling', 'college', 'toilets', 'arts_centre',
+                'nightclub', 'library', 'taxi', 'marketplace',
+                'community_centre', 'place_of_worship', 'waste_basket',
+                'clinic', 'social_facility', 'fountain', 'bureau_de_change',
+                'kindergarten', 'police', 'veterinary']
 ##########################################################################################
 # Start primary script
 ##########################################################################################
@@ -51,9 +63,8 @@ top_features = ['cafe_density', 'bar_density', 'bicycle_parking_density', 'fast_
                 'nightclub_density', 'library_density', 'taxi_density', 'marketplace_density',
                 'community_centre_density', 'place_of_worship_density', 'waste_basket_density',
                 'clinic_density', 'social_facility_density', 'fountain_density', 'bureau_de_change_density',
-                'kindergarten_density', 'police_density', 'veterinary_density', 'parking_density',
-                'university_density', 'parking_entrance_density', 'childcare_density', 'hospital_density',
-                'car_rental_density', 'vending_machine_density', 'dentist_density', 'bus_station_density']
+                'kindergarten_density', 'police_density', 'veterinary_density']
+
 
 status = st.empty()
 status2 = st.empty()
