@@ -31,7 +31,8 @@ amenity_names = ['cafe', 'bar', 'bicycle_parking', 'fast_food',
 st.title('Better Bike Share')
 
 st.subheader('About')
-st.write('Better Bike Share is a tool that uses machine learning to predict optimal bike share locations. To use this tool, please input a city to evaluate.')
+st.write('Better Bike Share is a tool that uses machine learning to predict optimal bike\
+ share locations. To use this tool, please input a city to evaluate.')
 # st.write('Please input an city to evaluate bike share locations')
 place = st.text_input(label='Input location, e.g. Portland, Oregon, USA', value='Portland, Oregon, USA')
 
@@ -124,7 +125,7 @@ status.text('STATUS: Generating map')
 num_bs = (city_comparison.poly_area_km*city_comparison.bike_rental_density).sum()
 capacity = np.floor(city_comparison.poly_area_km*city_comparison.RF_prediction).sum()
 
-msg = f"The predicted maximum bike share capacity is {capacity:.0f}. There are currently {num_bs:.0f} bike shares. "
+msg = f"The maximum predicted bike share capacity is {capacity:.0f}. There are currently {num_bs:.0f} bike shares. "
 st.markdown(msg)
 
 
@@ -205,7 +206,7 @@ saturated market. Select different layers to explore actual and predicted bike s
 ##########################################################################################
 st.subheader('Contact')
 
-msg1 = 'Email: <a href = "mailto: peter.li.zhang.com">peter.li.zhang@gmail.com</a> <br>\
+msg1 = 'Email: <a href = "mailto: peter.li.zhang.com" target="_blank" >peter.li.zhang@gmail.com</a> <br>\
 Github: <a href="https://github.com/peterlzhang" target="_blank" >github.com/peterlzhang</a> <br>\
 LinkedIn: <a href="https://www.linkedin.com/in/peter-zhang-ds" target="_blank">www.linkedin.com/in/peter-zhang-ds/</a>'
 st.markdown(msg1,  unsafe_allow_html=True)
