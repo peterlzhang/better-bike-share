@@ -13,29 +13,8 @@ import joblib
 import bike_share_funcs as bsf
 from folium import GeoJsonTooltip
 ##########################################################################################
-#
+# Initialize amenity names
 ##########################################################################################
-
-    
-# amenity_names = ['animal_shelter', 'archive', 'arts_centre', 'atm', 'bank', 'bar', 'bench', 'bench;waste_basket',
-#                  'bicycle_parking', 'bicycle_repair_station', 'biergarten', 'bureau_de_change', 'bus_station', 'cafe',
-#                  'car_rental', 'car_sharing', 'car_wash', 'casino', 'charging_station', 'childcare', 'cinema',
-#                  'circus_school', 'clinic', 'clock', 'club', 'college', 'community_centre', 'compressed_air',
-#                  'conference_centre', 'courthouse', 'crematorium', 'dentist', 'device_charging_station', 'doctors',
-#                  'doctors_offices', 'drinking_water', 'embassy', 'events_venue', 'fast_food', 'ferry_terminal',
-#                  'fire_station', 'fountain', 'fuel', 'gallery', 'gambling', 'garden', 'grave_yard', 'grit_bin',
-#                  'hospital', 'ice_cream', 'jobcentre', 'kindergarten', 'language_school', 'left_luggage',
-#                  'library', 'life_boats', 'luggage_locker', 'marketplace', 'monastery', 'money_transfer',
-#                  'money_transfer; post_office', 'motorcycle_parking', 'music_school', 'music_venue', 'nightclub',
-#                  'nursing_home', 'parcel_lockers', 'parking', 'parking_entrance', 'parking_space', 'pharmacy',
-#                  'photo_booth', 'place_of_worship', 'place_of_worship;monastery', 'police', 'post_box', 'post_depot',
-#                  'post_office', 'prep_school', 'preschool', 'prison', 'pub', 'public_bath', 'public_bookcase',
-#                  'public_building', 'recycling', 'restaurant', 'restaurant;cafe', 'school', 'shelter',
-#                  'social_centre', 'social_facility', 'sport', 'stripclub', 'studio', 'swimming_pool', 'swingerclub',
-#                  'taxi', 'telephone', 'theatre', 'toilets', 'townhall', 'trailer_park', 'trade_school', 'university',
-#                  'vending_machine', 'venue', 'veterinary', 'waste_basket', 'water', 'water_fountain','yacht_club']
-#                  
-                 
                  
 amenity_names = ['cafe', 'bar', 'bicycle_parking', 'fast_food',
                 'bank', 'pharmacy', 'pub', 'atm', 'car_sharing',
@@ -51,7 +30,9 @@ amenity_names = ['cafe', 'bar', 'bicycle_parking', 'fast_food',
 ##########################################################################################
 st.title('Better Bike Share')
 
-st.write('Predict optimal bike share locations using machine learning model trained on global Open Street Map (OSM) data')
+st.subheader('About')
+st.write('Better Bike Share is a tool that uses machine learning to predict optimal bike share locations. To use this tool, please input a city to evaluate.')
+# st.write('Please input an city to evaluate bike share locations')
 place = st.text_input(label='Input location, e.g. Portland, Oregon, USA', value='Portland, Oregon, USA')
 
 
@@ -99,7 +80,7 @@ loaded_model = joblib.load('best_RF_model.sav')
 
 
 ##########################################################################################
-#
+# Generate comparison of actual and predicted
 ##########################################################################################
 
 status.text('STATUS: Predicting bike share distribution')
@@ -135,10 +116,18 @@ diff_color = {str(key): colormap(diff_dict[key]) for key in diff_dict.keys()}
 
 
 ##########################################################################################
-#
+# Mapping
 ##########################################################################################
 
 status.text('STATUS: Generating map')
+
+num_bs = (city_comparison.poly_area_km*city_comparison.bike_rental_density).sum()
+capacity = np.floor(city_comparison.poly_area_km*city_comparison.RF_prediction).sum()
+
+msg = f"The predicted maximum bike share capacity is {capacity:.0f}. There are currently {num_bs:.0f} bike shares. "
+st.markdown(msg)
+
+
 
 m = folium.Map([city.geometry.centroid.y, city.geometry.centroid.x],
                zoom_start=11,
@@ -182,13 +171,6 @@ tooltip=GeoJsonTooltip(
     localize=True,
     sticky=False,
     labels=True,
-#     style="""
-#         background-color: #ffffff;
-#         border: 2px solid black;
-#         border-radius: 3px;
-#         box-shadow: 3px;
-#     """,
-#     max_width=800,
 )
 
 folium.GeoJson(
@@ -212,3 +194,18 @@ folium.LayerControl().add_to(m)
 st.markdown(m._repr_html_(), unsafe_allow_html=True)
 
 status.text('STATUS: Analysis complete')
+
+st.write('The map above shows how the distribution of bikes shares can be optimized. \
+Red regions indicate an over saturated market and blue regions indicated an under \
+saturated market. Select different layers to explore actual and predicted bike share distributions.')
+
+
+##########################################################################################
+# Contact
+##########################################################################################
+st.subheader('Contact')
+
+msg1 = 'Email: <a href = "mailto: peter.li.zhang.com">peter.li.zhang@gmail.com</a> <br>\
+Github: <a href="https://github.com/peterlzhang" target="_blank" >github.com/peterlzhang</a> <br>\
+LinkedIn: <a href="https://www.linkedin.com/in/peter-zhang-ds" target="_blank">www.linkedin.com/in/peter-zhang-ds/</a>'
+st.markdown(msg1,  unsafe_allow_html=True)
