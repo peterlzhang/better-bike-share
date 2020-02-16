@@ -18,3 +18,13 @@ In this work, a random forest model is trained to understand how bike shares are
 Insights:
  * Bike shares are placed in **social settings** near amenities like Cafes, bars, and restaurants
  * Bike shares are placed in **bike friendly areas** where the cyling infrastructure is well established
+
+## Tools and Skills
+
+ * AWS S3, Athena, Sagemaker, EC2
+ * Streamlit
+ * Python
+ * GIS
+ * Random Forest
+ * ETL
+ * Feature Engineering
