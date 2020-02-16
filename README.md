@@ -3,7 +3,7 @@ Helping bike share companies better allocate their resources
 
 ## Motivation
 
-Determining optimal bike share locations can be a costly and time consuming task. There is an abundance of geographical data and thus there is an opportunity for machine learning to assist companies in determining how to best allocate their limited resources. An optimal allocation of bike shares will lead to fewer bike cluttering the sidewalks and more customers enjoying bikes.
+Determining optimal bike share locations can be a costly and time consuming task. There is an abundance of geographical data and thus there is an opportunity for machine learning to assist companies in determining how to best allocate their limited resources. An optimal allocation of bike shares will lead to fewer bikes cluttering the sidewalks and more customers enjoying bikes.
 
 
 ## Problem Statment
