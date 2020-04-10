@@ -13,7 +13,7 @@ Given limited resources, how can companies optimally meet bike share demands?
 
 ## Results and Insights
 
-In this work, a random forest model is trained to understand how bike shares are distributed in successful bike share cities. This model is then used to create an interactive map so that companies can quickly decide how to best allocate their limited resources in existing or new markets. Please visit <a href="https://bit.ly/better_bike_share" target="_blank">Better Bike Share</a> to begin analyzing a location.
+In this work, a random forest model is trained to understand how bike shares are distributed in successful bike share cities. This model is then used to create an interactive map so that companies can quickly decide how to best allocate their limited resources in existing or new markets.
 
 Insights:
  * Bike shares are placed in **social settings** near amenities like Cafes, bars, and restaurants
